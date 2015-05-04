@@ -14,6 +14,8 @@ namespace model {
     {
     friend class Singleton<Map>;
     public:
+        void InitMap(int x, int y);
+
         void setMapInformations(const string & data)    { _mapInformations = data; }
         void setMap(vector<string> map)                 { _map = map; }
         void setSizeX(const int & x)                    { _sizeX = x; }
@@ -30,6 +32,7 @@ namespace model {
 
         string          _mapInformations;
         vector<string>  _map;
+        int**           _map2;
         int             _sizeX;
         int             _sizeY;
     };

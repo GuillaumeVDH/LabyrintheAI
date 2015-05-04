@@ -15,10 +15,7 @@ MapHandler::MapHandler()
     _map = Map::getInstance();
 }
 
-MapHandler::~MapHandler()
-{
-    _map->kill();
-}
+MapHandler::~MapHandler() { }
 
 /**
  * @brief This method retrieve the map from the file and fill up our map object
@@ -56,13 +53,13 @@ void MapHandler::parseMapInformations(const string & data)
     size_t pos = data.find(" ");
     string str = data.substr(pos+1);
 
-    //Retrieve X
-    pos = str.find(" ");
-    string stringSizeX = str.substr(0, pos);
-
     //Retrieve Y
     pos = str.find(" ");
-    string stringSizeY = str.substr(pos+1, pos);
+    string stringSizeY = str.substr(0, pos);
+
+    //Retrieve X
+    pos = str.find(" ");
+    string stringSizeX = str.substr(pos+1, pos);
 
     //Set them up on our Map object
     _map->setSizeX(atoi(stringSizeX.c_str()));
