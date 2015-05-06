@@ -4,4 +4,4 @@ project(Labyrinthe)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp)
-add_executable(Labyrinthe ${SOURCE_FILES} handlers/MapHandler.cpp handlers/MapHandler.h model/Map.cpp model/Map.h handlers/FileHandler.cpp handlers/FileHandler.h singleton/Singleton.h Labyrinthe.cpp Labyrinthe.h Constants.h)
+add_executable(Labyrinthe ${SOURCE_FILES} handlers/MapHandler.cpp handlers/MapHandler.h model/Map.cpp model/Map.h handlers/FileHandler.cpp handlers/FileHandler.h singleton/Singleton.h Labyrinthe.cpp Labyrinthe.h Constants.h model/Coordinates.cpp model/Coordinates.h)

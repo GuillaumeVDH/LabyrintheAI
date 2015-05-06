@@ -8,6 +8,7 @@
 #include <string>
 #include "../singleton/Singleton.h"
 #include "stdexcept"
+#include "Coordinates.h"
 
 using namespace std;
 namespace model {
@@ -23,15 +24,19 @@ namespace model {
         void setMapInformations(const string & data)    { _mapInformations = data; }
         void setSizeX(const int & x)                    { _sizeX = x-1; } //TODO check why the example says 29 but is 28 length
         void setSizeY(const int & y)                    { _sizeY = y; }
+        void setStart(const Coordinates & start )       { _start = start; }
+        void setFinish(const Coordinates & finish )     { _finish = finish; }
 
         string getMapInformations()     { return _mapInformations; }
         int getSizeX()                  { return  _sizeX; }
         int getSizeY()                  { return  _sizeY; }
+        Coordinates getStart()          { return  _start; }
+        Coordinates getFinish()         { return  _finish; }
         int getValue(const unsigned & x, const unsigned & y);
 
 
         //DEBUG
-        void Debugg();  //Debug method drawing _map2
+        void Debugg();  //Debug method drawing _map
 
     private:
         Map();
@@ -43,6 +48,8 @@ namespace model {
         int**               _map;
         int                 _sizeX;
         int                 _sizeY;
+        Coordinates         _start;
+        Coordinates         _finish;
     };
 }
 

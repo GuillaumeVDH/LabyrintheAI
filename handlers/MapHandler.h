@@ -8,6 +8,7 @@
 #include <vector>
 #include "../model/Map.h"
 #include "FileHandler.h"
+#include "../model/Coordinates.h"
 
 using namespace std;
 using namespace model;
@@ -17,6 +18,7 @@ namespace handlers {
         MapHandler();
         ~MapHandler();
         void readMap(const string & path);
+        void getStardAndFinish();
         void showMap();
 
     private:

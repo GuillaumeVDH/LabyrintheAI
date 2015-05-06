@@ -9,7 +9,10 @@ using namespace std;
 using namespace model;
 
 Map::Map() {
-
+    _start.setX(0);
+    _start.setY(0);
+    _finish.setX(0);
+    _finish.setY(0);
 }
 
 Map::~Map()
@@ -35,8 +38,6 @@ void Map::InitMap(int x, int y)
             _map[i][j] = 0;
         }
     }
-
-
 }
 
 int Map::getValue(const unsigned &x, const unsigned &y)

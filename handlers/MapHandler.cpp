@@ -41,7 +41,6 @@ void MapHandler::readMap(const string & path) {
 
         //Now that we've got the x/y size from the text file, let's init our 2d array
         _map->InitMap(_map->getSizeX(), _map->getSizeY());
-        _map->Debugg();
 
         //Generate the walls..
         unsigned int y = 0;
@@ -62,10 +61,8 @@ void MapHandler::readMap(const string & path) {
             ++y;
         }
 
-        _map->Debugg();
-
     } catch(exception & e) {
-        cerr << "Unable to read file" << endl;
+        throw;
     }
 }
 
@@ -91,4 +88,21 @@ void MapHandler::parseMapInformations(const string & data)
     //Set them up on our Map object
     _map->setSizeX(atoi(stringSizeX.c_str()));
     _map->setSizeY(atoi(stringSizeY.c_str()));
+}
+
+void MapHandler::getStardAndFinish()
+{
+
+    //TODO to implement
+
+    //This is a big pchit atm :)
+    Coordinates start;
+    start.setX(2);
+    start.setY(2);
+    Coordinates end;
+    end.setX(24);
+    end.setY(10);
+
+    _map->setStart(start);
+    _map->setFinish(end);
 }
