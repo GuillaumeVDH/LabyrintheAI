@@ -50,7 +50,14 @@ void MapHandler::readMap(const string & path) {
             for(unsigned int i = 0; i < data.length(); ++i)
             {
                 if(data[i] == '#')
-                    _map->addWall(i,y);
+                {
+                    try {
+                        _map->addWall(i, y);
+                    } catch(exception & e) {
+                        cerr << e.what() << endl;
+                    }
+                }
+
             }
             ++y;
         }
@@ -58,16 +65,14 @@ void MapHandler::readMap(const string & path) {
         _map->Debugg();
 
     } catch(exception & e) {
-        cerr << "Unable to read file" << endl; ///TODO handle nicely errors to log them.
+        cerr << "Unable to read file" << endl;
     }
-
-    //_map->InitMap(_map->getSizeX(), _map->getSizeY());
 }
 
 void MapHandler::showMap()
 {
-    for( string data : _map->getMap())
-        cout << data << endl;
+//    for( string data : _map->getMap())
+//        cout << data << endl;
 }
 
 void MapHandler::parseMapInformations(const string & data)

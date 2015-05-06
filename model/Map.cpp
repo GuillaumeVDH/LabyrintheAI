@@ -9,24 +9,44 @@ using namespace std;
 using namespace model;
 
 Map::Map() {
-    _map.clear();
+
+}
+
+Map::~Map()
+{
+    //De-allocate memory of our 2d array
+    for (int i = 0; i < _sizeY; ++i)
+        delete [] _map[i];
+    delete [] _map;
 }
 
 void Map::InitMap(int x, int y)
 {
     cout << "#Map::InitMap() " << endl;
-    _map2 = new int*[y];
+    _map = new int*[y];
     for (int i = 0; i < y; ++i) {
         for (int j = 0; j < x; ++j) {
-            _map2[i] = new int[x];
+            _map[i] = new int[x];
         }
     }
 
     for (int i = 0; i < y; ++i) {
         for (int j = 0; j < x; ++j) {
-            _map2[i][j] = 0;
+            _map[i][j] = 0;
         }
     }
+
+
+}
+
+int Map::getValue(const unsigned &x, const unsigned &y)
+{
+    int result = -1;
+    if((x >= 0 && x <= _sizeX) && (y >= 0 && y <= _sizeY))
+        result = _map[y][x];
+    else
+        throw invalid_argument("Out of bound.");
+    return result;
 }
 
 void Map::addWall(const int &x, const int &y)
@@ -41,7 +61,10 @@ void Map::removeWall(const int &x, const int &y)
 
 void Map::setValue(const int & x, const int & y, const int & value)
 {
-    _map2[y][x] = value;
+    if((x >= 0 && x <= _sizeX) && (y >= 0 && y <= _sizeY))
+        _map[y][x] = value;
+    else
+        throw invalid_argument("Out of bound.");
 }
 
 
@@ -50,10 +73,10 @@ void Map::Debugg()
     cout << "#Map::Debugg() " << endl;
     cout << "Informations: " << "x:" << _sizeX << " / y:" << _sizeY << endl;
 
-    for (int i = 0; i < _sizeY; ++i) {   // for each row
+    for (int i = 0; i < _sizeY; ++i) {      // for each row
         cout << setfill('0') << setw(2) << i << "- " ;
-        for (int j = 0; j < _sizeX; ++j) { // for each column
-            cout << _map2[i][j];
+        for (int j = 0; j < _sizeX; ++j) {  // for each column
+            cout << _map[i][j];
         }
         cout << endl;
     }

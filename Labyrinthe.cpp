@@ -16,13 +16,8 @@ Labyrinthe::~Labyrinthe()
 
 void Labyrinthe::run()
 {
-    MapHandler mapHandler;
-    //mapHandler.readMap("C:\\Users\\Guillaume\\ClionProjects\\Labyrinthe\\labyrinthe.txt");
-    mapHandler.readMap("C:/Users/Guillaume/ClionProjects/Labyrinthe/labyrinthe.txt");
-
-    ///SHOW
-    //cout << "Map x: " << _map->getSizeX() << " / Map y: " << _map->getSizeY() << endl;
-    //mapHandler.showMap();
+    _mapHandler;
+    _mapHandler.readMap(Constants::PATH_LABYRINTHE);
 
     ///TODO create logic map from X/Y + vector data
 

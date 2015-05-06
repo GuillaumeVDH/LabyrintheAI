@@ -6,6 +6,7 @@
 #define LABYRINTHE_LABYRINTHE_H
 #include "handlers/MapHandler.h"
 #include "model/Map.h"
+#include "Constants.h"
 
 using namespace handlers;
 using namespace model;

@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include "../singleton/Singleton.h"
+#include "stdexcept"
 
 using namespace std;
 namespace model {
@@ -16,18 +17,17 @@ namespace model {
     public:
         void InitMap(int x, int y);
 
-        void setMapInformations(const string & data)    { _mapInformations = data; }
-        void setMap(vector<string> map)                 { _map = map; }
-        void setSizeX(const int & x)                    { _sizeX = x-1; } //TODO check why the example says 29 but is 28 length
-        void setSizeY(const int & y)                    { _sizeY = y; }
-
         void addWall(const int & x, const int & y);
         void removeWall(const int & x, const int & y);
 
+        void setMapInformations(const string & data)    { _mapInformations = data; }
+        void setSizeX(const int & x)                    { _sizeX = x-1; } //TODO check why the example says 29 but is 28 length
+        void setSizeY(const int & y)                    { _sizeY = y; }
+
         string getMapInformations()     { return _mapInformations; }
-        vector<string> getMap()         { return _map; }
         int getSizeX()                  { return  _sizeX; }
         int getSizeY()                  { return  _sizeY; }
+        int getValue(const unsigned & x, const unsigned & y);
 
 
         //DEBUG
@@ -35,15 +35,14 @@ namespace model {
 
     private:
         Map();
-        virtual ~Map() {};
-
+        virtual ~Map();
         void setValue(const int & x, const int & y, const int & value);
 
-        string          _mapInformations;
-        vector<string>  _map;
-        int**           _map2;
-        int             _sizeX;
-        int             _sizeY;
+        string               _mapInformations;
+        //vector<vector<int>> _map;
+        int**               _map;
+        int                 _sizeX;
+        int                 _sizeY;
     };
 }
 
