@@ -24,22 +24,44 @@ MapHandler::~MapHandler() { }
  */
 void MapHandler::readMap(const string & path) {
     try {
-        // Travail sur le fichier contenant la map
+        //Travail sur le fichier contenant la map
         _fileHandler.setFileSource(path);
         _fileHandler.getDataFromFile(_data);
 
-        // On récupère la première ligne contenant les informations (taille du labyrinthe) et on la retire de la map.
+        //On récupère la première ligne contenant les informations (taille du labyrinthe) et on la retire de la map.
         if(_data.size() > 1 )
         {
             this->parseMapInformations(_data.front());
             _data.erase(_data.begin());
         }
 
-        // On set la map
-        _map->setMap(_data);
+        //DEBUG
+        for( string data : _data)
+            cout << data << endl;
+
+        //Now that we've got the x/y size from the text file, let's init our 2d array
+        _map->InitMap(_map->getSizeX(), _map->getSizeY());
+        _map->Debugg();
+
+        //Generate the walls..
+        unsigned int y = 0;
+        for( string data : _data)
+        {
+            for(unsigned int i = 0; i < data.length(); ++i)
+            {
+                if(data[i] == '#')
+                    _map->addWall(i,y);
+            }
+            ++y;
+        }
+
+        _map->Debugg();
+
     } catch(exception & e) {
         cerr << "Unable to read file" << endl; ///TODO handle nicely errors to log them.
     }
+
+    //_map->InitMap(_map->getSizeX(), _map->getSizeY());
 }
 
 void MapHandler::showMap()

@@ -21,9 +21,9 @@ void Labyrinthe::run()
     mapHandler.readMap("C:/Users/Guillaume/ClionProjects/Labyrinthe/labyrinthe.txt");
 
     ///SHOW
-    cout << "Map x: " << _map->getSizeX() << " / Map y: " << _map->getSizeY() << endl;
-    mapHandler.showMap();
+    //cout << "Map x: " << _map->getSizeX() << " / Map y: " << _map->getSizeY() << endl;
+    //mapHandler.showMap();
 
     ///TODO create logic map from X/Y + vector data
-    //_map->InitMap(_map->getSizeX(), _map->getSizeY());
+
 }
