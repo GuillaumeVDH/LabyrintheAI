@@ -33,7 +33,11 @@ void Labyrinthe::run()
 
         if (FindWay(start.getX(), start.getY()))
         {
+            for (int i = 0; i < move.size(); i++) {
+                cout<<"Mouvement : " + move[i]<<endl;
+            }
             cout<<"Done"<<endl;
+
         }
         else
         {
@@ -53,6 +57,17 @@ void Labyrinthe::run()
 
 bool Labyrinthe::FindWay(int X, int Y)
 {
+    if (X==oldX+1)
+    {  move.push_back("O");}
+    if (X==oldX-1)
+    {  move.push_back("E");}
+    if (Y==oldY+1)
+    {  move.push_back("S");}
+    if (Y==oldY-1)
+    {  move.push_back("N");}
+    oldX=X;
+    oldY=Y;
+
     Coordinates end = _map->getFinish();
     const int Free = 0;
     const char somedude =2;

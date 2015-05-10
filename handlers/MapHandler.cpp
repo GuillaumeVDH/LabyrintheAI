@@ -100,7 +100,7 @@ void MapHandler::getStardAndFinish()
     start.setY(2);
     Coordinates end;
     end.setX(1);
-    end.setY(5);
+    end.setY(3);
 
     _map->setStart(start);
     _map->setFinish(end);

@@ -8,6 +8,9 @@
 #include "model/Map.h"
 #include "Constants.h"
 #include <unistd.h>
+#include <vector>
+#include "iostream"
+#include <string>
 
 using namespace handlers;
 using namespace model;
@@ -21,6 +24,8 @@ public:
 private:
     Map* _map;
     MapHandler _mapHandler;
+    vector<string> move;
+    int oldX,oldY;
 };
 
 #endif //LABYRINTHE_LABYRINTHE_H
