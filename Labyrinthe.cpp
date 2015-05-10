@@ -2,7 +2,7 @@
 // Created by Guillaume on 5/4/2015.
 //
 
-#include <synchapi.h>
+#include "Windows.h"
 #include "Labyrinthe.h"
 
 Labyrinthe::Labyrinthe()
@@ -30,19 +30,24 @@ void Labyrinthe::run()
         cout << "Start: " << _map->getStart().getX() << "/" << _map->getStart().getY() << endl;
         cout << "Finish: " << _map->getFinish().getX() << "/" << _map->getFinish().getY() << endl;
 
+        cout << "#Seeking a solution... ";
         Coordinates start =_map->getStart();
         if (FindWay(start.getX(), start.getY()))
         {
-            for (int i = 0; i < move.size(); i++) {
-                cout<<"Mouvement : " + move[i]<<endl;
-            }
+            cout<<"#Solution found."<<endl;
+            cout<<"#Drawing map:"<<endl;
             _map->Debugg();
-            cout<<"Done"<<endl;
-
+            cout<<endl<<endl;
+            cout << "SOLUTION: " << endl;
+            for (int i = move.size()-1; i > 0; --i) {
+                cout<<move[i];
+                if(i!=1)
+                    cout<<"-";
+            }
         }
         else
         {
-            cout<<("Damn\n")<<endl;
+            cout<<("No solution found.\n")<<endl;
         }
 
     } catch(exception & e) {
@@ -53,39 +58,17 @@ void Labyrinthe::run()
 
 bool Labyrinthe::FindWay(int X, int Y)
 {
-//-------Enregistrement des mouvements de l'algo dans un vecteur -------//
-    if (X==oldX+1)
-    {
-        move.push_back("E");
-        cout<<"dernier mouvement : E"<<endl;
-    }
-    if (X==oldX-1)
-    {
-        move.push_back("O");
-        cout<<"dernier mouvement : O"<<endl;
-    }
-    if (Y==oldY+1)
-    {
-        move.push_back("S");
-        cout<<"dernier mouvement : S"<<endl;
-    }
-    if (Y==oldY-1)
-    {
-        move.push_back("N");
-        cout<<"dernier mouvement : N"<<endl;
-    }
-    oldX=X;
-    oldY=Y;
 //-------------------------------------------------------//
     Coordinates end = _map->getFinish();
     const int Free = 0;
     const char somedude =2;
     _map->setValue(X,Y,somedude);   //Marquer par un 2 la position de l'algo dans le tableau
 
-    //Affichage de la map
+    //Affichage de la map (debug)
     //_map->Debugg();
     //cout<<""<<endl;
-    //Sleep(100);
+    //Sleep(150);
+
     // Regarder si nous avons atteind le point final
     if (X == (unsigned int)end.getX() && Y == (unsigned int)end.getY())
     {
@@ -97,31 +80,35 @@ bool Labyrinthe::FindWay(int X, int Y)
         if (X > 0 && _map->getValue(X - 1, Y) == Free && _map->getValue(X - 1, Y) != 2 &&
                      FindWay(X - 1, Y)) //test vers ouest
         {
+            move.push_back("O");
             return true;
         }
         if (X < _map->getSizeX() && _map->getValue(X + 1, Y) == Free && _map->getValue(X + 1, Y) != 2 &&
                                     FindWay(X + 1, Y)) //test vers l'Est
         {
+            move.push_back("E");
             return true;
         }
         if (Y > 0 && _map->getValue(X, Y - 1) == Free && _map->getValue(X, Y - 1) != 2 &&
-                     FindWay(X, Y - 1)) //test vers le sud
+                     FindWay(X, Y - 1)) //test vers le nord
         {
+            move.push_back("N");
             return true;
         }
         if (Y < _map->getSizeY() && _map->getValue(X, Y + 1) == Free && _map->getValue(X, Y + 1) != 2 &&
-                                    FindWay(X, Y + 1)) //test vers le nord
+                                    FindWay(X, Y + 1)) //test vers le sud
         {
+            move.push_back("S");
             return true;
         }
     }
-    catch (exception &e)
-    {cout<<"Invalid argument X :"<< X<<"    Y :"<<Y<<endl;}
+    catch (exception &e) {
+        cout<<"Invalid argument X :"<< X<<"    Y :"<<Y<<endl;
+    }
     // Otherwise we need to backtrack and find another solution.
-
     _map->setValue(X,Y,Free);
-    // If you want progressive update, uncomment these lines...
-    //PrintDaMaze();
-    //Sleep(50);
+    if(move.size() > 1)
+        move.pop_back();
+
     return false;
 }

@@ -72,7 +72,7 @@ void Map::setValue(const int & x, const int & y, const int & value)
 void Map::Debugg()
 {
     cout << "#Map::Debugg() " << endl;
-    cout << "Informations: " << "x:" << _sizeX << " / y:" << _sizeY << endl;
+    //cout << "Informations: " << "x:" << _sizeX << " / y:" << _sizeY << endl;
 
     for (int i = 0; i < _sizeY; ++i) {      // for each row
         cout << setfill('0') << setw(2) << i << "- " ;

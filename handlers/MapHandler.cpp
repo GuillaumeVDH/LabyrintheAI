@@ -96,11 +96,11 @@ void MapHandler::getStardAndFinish()
 
     //This is a big pchit atm :)
     Coordinates start;
-    start.setX(2);
-    start.setY(2);
+    start.setX(2-1);
+    start.setY(2-1);
     Coordinates end;
-    end.setX(24);
-    end.setY(9);
+    end.setX(14);
+    end.setY(14);
 
     _map->setStart(start);
     _map->setFinish(end);
