@@ -2,6 +2,7 @@
 // Created by Guillaume on 5/4/2015.
 //
 
+#include <synchapi.h>
 #include "Labyrinthe.h"
 
 Labyrinthe::Labyrinthe()
@@ -35,6 +36,7 @@ void Labyrinthe::run()
             for (int i = 0; i < move.size(); i++) {
                 cout<<"Mouvement : " + move[i]<<endl;
             }
+            _map->Debugg();
             cout<<"Done"<<endl;
 
         }
@@ -54,13 +56,13 @@ bool Labyrinthe::FindWay(int X, int Y)
 //-------Enregistrement des mouvements de l'algo dans un vecteur -------//
     if (X==oldX+1)
     {
-        move.push_back("O");
-        cout<<"dernier mouvement : 0"<<endl;
+        move.push_back("E");
+        cout<<"dernier mouvement : E"<<endl;
     }
     if (X==oldX-1)
     {
-        move.push_back("E");
-        cout<<"dernier mouvement : E"<<endl;
+        move.push_back("O");
+        cout<<"dernier mouvement : O"<<endl;
     }
     if (Y==oldY+1)
     {
@@ -81,9 +83,9 @@ bool Labyrinthe::FindWay(int X, int Y)
     _map->setValue(X,Y,somedude);   //Marquer par un 2 la position de l'algo dans le tableau
 
     //Affichage de la map
-    _map->Debugg();
-    cout<<""<<endl;
-    sleep(1);
+    //_map->Debugg();
+    //cout<<""<<endl;
+    //Sleep(100);
     // Regarder si nous avons atteind le point final
     if (X == (unsigned int)end.getX() && Y == (unsigned int)end.getY())
     {
@@ -91,22 +93,30 @@ bool Labyrinthe::FindWay(int X, int Y)
     }
 
     // Chercher le point final récursivement.
-    if (X > 0 && _map->getValue(Y,X - 1) == Free && _map->getValue(Y,X - 1) !=2 && FindWay(X - 1, Y)  ) //test vers ouest
-    {
-        return true;
+    try {
+        if (X > 0 && _map->getValue(X - 1, Y) == Free && _map->getValue(X - 1, Y) != 2 &&
+                     FindWay(X - 1, Y)) //test vers ouest
+        {
+            return true;
+        }
+        if (X < _map->getSizeX() && _map->getValue(X + 1, Y) == Free && _map->getValue(X + 1, Y) != 2 &&
+                                    FindWay(X + 1, Y)) //test vers l'Est
+        {
+            return true;
+        }
+        if (Y > 0 && _map->getValue(X, Y - 1) == Free && _map->getValue(X, Y - 1) != 2 &&
+                     FindWay(X, Y - 1)) //test vers le sud
+        {
+            return true;
+        }
+        if (Y < _map->getSizeY() && _map->getValue(X, Y + 1) == Free && _map->getValue(X, Y + 1) != 2 &&
+                                    FindWay(X, Y + 1)) //test vers le nord
+        {
+            return true;
+        }
     }
-    if (X < _map->getSizeX() && _map->getValue(Y,X + 1)==Free && _map->getValue(Y,X + 1) !=2 && FindWay(X + 1, Y)) //test vers l'Est
-    {
-        return true;
-    }
-    if (Y > 0 && _map->getValue(Y - 1,X) == Free &&_map->getValue(Y-1,X) !=2 && FindWay(X, Y - 1)) //test vers le sud
-    {
-        return true;
-    }
-    if (Y < _map->getSizeY() && _map->getValue(Y + 1,X) == Free &&_map->getValue(Y+1,X) !=2 && FindWay(X, Y + 1)) //test vers le nord
-    {
-        return true;
-    }
+    catch (exception &e)
+    {cout<<"Invalid argument X :"<< X<<"    Y :"<<Y<<endl;}
     // Otherwise we need to backtrack and find another solution.
 
     _map->setValue(X,Y,Free);
