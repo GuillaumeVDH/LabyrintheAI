@@ -56,7 +56,6 @@ void MapHandler::readMap(const string & path) {
                         cerr << e.what() << endl;
                     }
                 }
-
             }
             ++y;
         }

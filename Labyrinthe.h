@@ -14,6 +14,7 @@ class Labyrinthe {
 public:
     Labyrinthe();
     ~Labyrinthe();
+    bool FindWay(int X, int Y);
 
     void run();
 private:
