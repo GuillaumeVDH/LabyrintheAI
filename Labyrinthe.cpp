@@ -18,7 +18,7 @@ void Labyrinthe::run()
 {
     try {
         cout << "#Generating the map.. " << endl;
-        _mapHandler.readMap(Constants::PATH_LABYRINTHE);
+        _mapHandler.readMap(Constants::PATH_LABYRINTHE); // Affichage de la map contenu dans le fichier texte
 
         cout << "#Map generated! " << endl;
         _map->Debugg();
@@ -30,7 +30,6 @@ void Labyrinthe::run()
         cout << "Finish: " << _map->getFinish().getX() << "/" << _map->getFinish().getY() << endl;
 
         Coordinates start =_map->getStart();
-
         if (FindWay(start.getX(), start.getY()))
         {
             for (int i = 0; i < move.size(); i++) {
@@ -48,58 +47,63 @@ void Labyrinthe::run()
         cerr << e.what() << endl;
         cerr << "Aborted." << endl;
     }
-
-
-
-    ///TODO create logic map from X/Y + vector data
-
 }
 
 bool Labyrinthe::FindWay(int X, int Y)
 {
+//-------Enregistrement des mouvements de l'algo dans un vecteur -------//
     if (X==oldX+1)
-    {  move.push_back("O");}
+    {
+        move.push_back("O");
+        cout<<"dernier mouvement : 0"<<endl;
+    }
     if (X==oldX-1)
-    {  move.push_back("E");}
+    {
+        move.push_back("E");
+        cout<<"dernier mouvement : E"<<endl;
+    }
     if (Y==oldY+1)
-    {  move.push_back("S");}
+    {
+        move.push_back("S");
+        cout<<"dernier mouvement : S"<<endl;
+    }
     if (Y==oldY-1)
-    {  move.push_back("N");}
+    {
+        move.push_back("N");
+        cout<<"dernier mouvement : N"<<endl;
+    }
     oldX=X;
     oldY=Y;
-
+//-------------------------------------------------------//
     Coordinates end = _map->getFinish();
     const int Free = 0;
     const char somedude =2;
-    // Make the move (if it's wrong, we will backtrack later.
-    _map->setValue(X,Y,somedude);
+    _map->setValue(X,Y,somedude);   //Marquer par un 2 la position de l'algo dans le tableau
 
-
-    // If you want progressive update, uncomment these lines...
+    //Affichage de la map
     _map->Debugg();
     cout<<""<<endl;
-    //sleep(50);
-
-    // Check if we have reached our goal.
+    sleep(1);
+    // Regarder si nous avons atteind le point final
     if (X == (unsigned int)end.getX() && Y == (unsigned int)end.getY())
     {
         return true;
     }
 
-    // Recursively search for our goal.
-    if (X > 0 && _map->getValue(Y,X - 1) == Free && FindWay(X - 1, Y))
+    // Chercher le point final récursivement.
+    if (X > 0 && _map->getValue(Y,X - 1) == Free && _map->getValue(Y,X - 1) !=2 && FindWay(X - 1, Y)  ) //test vers ouest
     {
         return true;
     }
-    if (X < _map->getSizeX() && _map->getValue(Y,X + 1) == Free && FindWay(X + 1, Y))
+    if (X < _map->getSizeX() && _map->getValue(Y,X + 1)==Free && _map->getValue(Y,X + 1) !=2 && FindWay(X + 1, Y)) //test vers l'Est
     {
         return true;
     }
-    if (Y > 0 && _map->getValue(Y - 1,X) == Free && FindWay(X, Y - 1))
+    if (Y > 0 && _map->getValue(Y - 1,X) == Free &&_map->getValue(Y-1,X) !=2 && FindWay(X, Y - 1)) //test vers le sud
     {
         return true;
     }
-    if (Y < _map->getSizeY() && _map->getValue(Y + 1,X) == Free && FindWay(X, Y + 1))
+    if (Y < _map->getSizeY() && _map->getValue(Y + 1,X) == Free &&_map->getValue(Y+1,X) !=2 && FindWay(X, Y + 1)) //test vers le nord
     {
         return true;
     }
