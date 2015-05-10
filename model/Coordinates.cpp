@@ -1,5 +1,5 @@
 //
-// Created by Guillaume on 06/05/2015.
+// Created by Guillaume.
 //
 
 #include "Coordinates.h"

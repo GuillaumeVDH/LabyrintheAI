@@ -29,6 +29,7 @@ void Labyrinthe::run()
         cout << "done." << endl;
         cout << "Start: " << _map->getStart().getX() << "/" << _map->getStart().getY() << endl;
         cout << "Finish: " << _map->getFinish().getX() << "/" << _map->getFinish().getY() << endl;
+        cout << "Finish case value: " << _map->getValue(_map->getFinish().getX(),_map->getFinish().getY()) << endl;
 
         cout << "#Seeking a solution... ";
         Coordinates start =_map->getStart();

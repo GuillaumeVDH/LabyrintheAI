@@ -40,6 +40,7 @@ void MapHandler::readMap(const string & path) {
             cout << data << endl;
 
         //Now that we've got the x/y size from the text file, let's init our 2d array
+        cout << "X: " << _map->getSizeY() << endl;
         _map->InitMap(_map->getSizeX(), _map->getSizeY());
 
         //Generate the walls..
@@ -65,12 +66,12 @@ void MapHandler::readMap(const string & path) {
     }
 }
 
-void MapHandler::showMap()
-{
-//    for( string data : _map->getMap())
-//        cout << data << endl;
-}
 
+/**
+ * @brief This method retrieve the information located at the first line into the maze file (i.e start/finish).
+ *
+ * @param data  The first string line of the file
+ */
 void MapHandler::parseMapInformations(const string & data)
 {
     size_t pos = data.find(" ");
@@ -85,9 +86,10 @@ void MapHandler::parseMapInformations(const string & data)
     string stringSizeX = str.substr(pos+1, pos);
 
     //Set them up on our Map object
-    _map->setSizeX(atoi(stringSizeX.c_str()));
+    _map->setSizeX(atoi(stringSizeX.c_str())-1);
     _map->setSizeY(atoi(stringSizeY.c_str()));
 }
+
 
 void MapHandler::getStardAndFinish()
 {
@@ -96,8 +98,8 @@ void MapHandler::getStardAndFinish()
 
     //This is a big pchit atm :)
     Coordinates start;
-    start.setX(2-1);
-    start.setY(2-1);
+    start.setX(1);
+    start.setY(1);
     Coordinates end;
     end.setX(14);
     end.setY(14);

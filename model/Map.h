@@ -22,7 +22,7 @@ namespace model {
         void removeWall(const int & x, const int & y);
 
         void setMapInformations(const string & data)    { _mapInformations = data; }
-        void setSizeX(const int & x)                    { _sizeX = x-1; } //TODO check why the example says 29 but is 28 length
+        void setSizeX(const int & x)                    { _sizeX = x; }
         void setSizeY(const int & y)                    { _sizeY = y; }
         void setStart(const Coordinates & start )       { _start = start; }
         void setFinish(const Coordinates & finish )     { _finish = finish; }
