@@ -8,7 +8,7 @@
 #include <string>
 namespace Constants {
 
-    const std::string PATH_LABYRINTHE = "C:\\Users\\Guillaume\\ClionProjects\\Labyrinthe\\labyrinthe.txt";
+    const std::string PATH_LABYRINTHE = "labyrinthe.txt"; //File MUST be placed near to the binary executed
 
 }
 #endif //LABYRINTHE_CONSTANTS_H
