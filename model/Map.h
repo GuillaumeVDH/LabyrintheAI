@@ -33,7 +33,7 @@ namespace model {
         Coordinates getStart()          { return  _start; }
         Coordinates getFinish()         { return  _finish; }
         int getValue(const unsigned & x, const unsigned & y);
-
+        void setValue(const int & x, const int & y, const int & value);
 
         //DEBUG
         void Debugg();  //Debug method drawing _map
@@ -41,7 +41,7 @@ namespace model {
     private:
         Map();
         virtual ~Map();
-        void setValue(const int & x, const int & y, const int & value);
+
 
         string               _mapInformations;
         //vector<vector<int>> _map;

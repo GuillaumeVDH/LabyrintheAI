@@ -7,6 +7,7 @@
 #include "handlers/MapHandler.h"
 #include "model/Map.h"
 #include "Constants.h"
+#include <unistd.h>
 
 using namespace handlers;
 using namespace model;
